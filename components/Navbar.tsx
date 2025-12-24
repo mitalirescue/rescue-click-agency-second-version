@@ -84,9 +84,10 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _isDark, toggleTheme: _toggleTh
   return (
     <div className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ${scrolled ? 'pt-4' : 'pt-0'}`}>
       <nav
-        className={`transition-all duration-500 ease-in-out ${scrolled
-          ? 'w-[90%] md:w-auto rounded-full bg-white/90 backdrop-blur-xl border border-gray-200 shadow-lg px-4 py-2'
-          : 'w-full bg-transparent py-6 px-4 md:px-8'
+        className={`transition-all duration-500 ease-in-out ${
+          scrolled
+            ? 'w-full md:w-auto bg-white/95 md:bg-white/90 backdrop-blur-xl border border-gray-200 shadow-lg px-4 py-3 md:px-4 md:py-2 md:rounded-full'
+            : 'w-full bg-transparent py-6 px-4 md:px-8'
         }`}
       >
         <div className={`flex items-center justify-between ${scrolled ? 'max-w-none' : 'max-w-7xl mx-auto'}`}>

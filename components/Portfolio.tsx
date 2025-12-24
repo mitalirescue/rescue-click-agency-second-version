@@ -65,10 +65,14 @@ const Portfolio: React.FC = () => {
 
         {/* Header */}
         <div className={`flex flex-col md:flex-row justify-between items-end mb-16 gap-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div>
-            <span className="text-brand-purple font-bold tracking-widest uppercase text-xs mb-2 block">Selected Works</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-navy dark:text-white font-heading leading-tight">
-              Crafted with   <br /> <span className="text-brand-blue">Precision.</span>
+          <div className="w-full">
+            <span className="text-brand-purple font-bold tracking-widest uppercase text-xs mb-2 block text-left md:text-left">
+              Selected Works
+            </span>
+            <h2 className="text-left md:text-left text-4xl md:text-5xl font-bold text-navy dark:text-white font-heading leading-tight">
+              Crafted with
+              <br />
+              <span className="text-brand-blue">Precision.</span>
             </h2>
           </div>
           {/* <button onClick={e => e.preventDefault()} className="group flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-navy dark:text-white hover:text-brand-magenta transition-colors">
