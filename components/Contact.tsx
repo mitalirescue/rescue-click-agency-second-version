@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { log } from 'console';
 /**
  * Contact Component
  * 
@@ -92,15 +93,16 @@ const Contact: React.FC = () => {
     setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const nameError = validateField('name', formData.name);
     const emailError = validateField('email', formData.email);
     const messageError = validateField('message', formData.message);
-  
+    // Remove broken import.meta.env.VITE_API_URL reference - not needed here
+
     setErrors({ name: nameError, email: emailError, message: messageError });
     setTouched({ name: true, email: true, message: true });
   
@@ -110,7 +112,7 @@ const Contact: React.FC = () => {
       setStatus('submitting');
   
       const response = await axios.post(
-       `${import.meta.env.VITE_API_URL}/api/inquiry`,
+       `${apiUrl}/api/inquiry`,
         formData,
         { headers: { "Content-Type": "application/json" } }
       );
