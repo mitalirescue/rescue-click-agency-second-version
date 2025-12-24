@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import axios from 'axios';
 /**
  * Contact Component
  * 
@@ -92,39 +92,52 @@ const Contact: React.FC = () => {
     setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-  // Handle Form Submission
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate all fields
+  
     const nameError = validateField('name', formData.name);
     const emailError = validateField('email', formData.email);
     const messageError = validateField('message', formData.message);
-
+  
     setErrors({ name: nameError, email: emailError, message: messageError });
     setTouched({ name: true, email: true, message: true });
-
-    // If no errors, proceed with submission
-    if (!nameError && !emailError && !messageError) {
+  
+    if (nameError || emailError || messageError) return;
+  
+    try {
       setStatus('submitting');
-
-      // Simulate network request
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      setStatus('success');
-
-      // Show the button success state briefly before switching the view
-      setTimeout(() => {
-        setIsSubmitted(true);
-        setStatus('idle');
-        setFormData({ name: '', email: '', message: '' });
-        setTouched({ name: false, email: false, message: false });
-
-        // Reset the success view after 5 seconds to allow sending another message
-        setTimeout(() => setIsSubmitted(false), 5000);
-      }, 1000);
+  
+      const response = await axios.post(
+       `${import.meta.env.VITE_API_URL}/api/inquiry`,
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
+  
+      if (response.data.success) {
+        setStatus('success');
+  
+        setTimeout(() => {
+          setIsSubmitted(true);
+          setStatus('idle');
+          setFormData({ name: '', email: '', message: '' });
+          setTouched({ name: false, email: false, message: false });
+  
+          setTimeout(() => setIsSubmitted(false), 5000);
+        }, 1000);
+      }
+    } catch (error: any) {
+      console.error("API Error:", error);
+      alert(error.response?.data?.message || "Something went wrong");
+      setStatus('idle');
     }
   };
+  
+  
+
+     
+
 
   // Helper to determine input border color classes
   const getInputClasses = (fieldName: keyof typeof errors) => {
