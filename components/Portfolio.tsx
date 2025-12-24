@@ -5,35 +5,43 @@ import React, { useState, useEffect, useRef } from 'react';
  const funzoApp = new URL("../src/assets/funzo_app.png",import.meta.url).href;
  const trustlineApp =new URL("../src/assets/trustline_app.png",import.meta.url).href;
  
-const projects = [
+ type Project = {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+ };
+ 
+const projects: Project[] = [
   {
     id: 1,
-    // title: "Trustline Fintech",
-    // category: "Fintech App",
+    title: "Trustline Fintech",
+    category: "Fintech App",
     image: trustlineWeb,
-    // description: "A complete fintech platform for loan processing, partner onboarding, KYC verification, EMI calculation, and earnings tracking."
+    description: "A complete fintech platform for loan processing, partner onboarding, KYC verification, EMI calculation, and earnings tracking."
   },
   {
     id: 4,
-    // title: "Urban EcoBoost",
-    // category: "Marketing Campaign",
+    title: "Trustline App",
+    category: "Fintech Mobile",
     image:trustlineApp ,
-    // description: "Data-driven growth strategy resulting in 300% ROI."
+    description: "Mobile-first lending, repayment, and partner earnings experiences."
   },
 
   {
     id: 2,
-    // title: "Luxe Interiors",
-    // category: "E-Commerce",
+    title: "Funzo Web",
+    category: "Entertainment Web",
     image:funzo_web,
-    // description: "Immersive 3D shopping experience for high-end furniture."
+    description: "Landing and discovery experience for high-engagement media content."
   },
   {
     id: 3,
-    // title: "Urban EcoBoost",
-    // category: "Marketing Campaign",
+    title: "Funzo App",
+    category: "Entertainment Mobile",
     image:funzoApp,
-    // description: "Data-driven growth strategy resulting in 300% ROI."
+    description: "Immersive mobile UI tuned for retention and smooth playback."
   },
  
 ];
@@ -52,7 +60,7 @@ const Portfolio: React.FC = () => {
   }, []);
 
   return (
-    <section id="work" ref={ref} className="py-24 bg-white dark:bg-enterprise-dark border-t border-slate-100 dark:border-white/5">
+    <section id="work" ref={ref} className="py-24 bg-[#EFEEEC] dark:bg-enterprise-dark border-t border-slate-100 dark:border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -63,40 +71,62 @@ const Portfolio: React.FC = () => {
               Crafted with   <br /> <span className="text-brand-blue">Precision.</span>
             </h2>
           </div>
-          <button onClick={e => e.preventDefault()} className="group flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-navy dark:text-white hover:text-brand-magenta transition-colors">
+          {/* <button onClick={e => e.preventDefault()} className="group flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-navy dark:text-white hover:text-brand-magenta transition-colors">
             View Case Studies <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-          </button>
+          </button> */}
         </div>
 
-        {/* Project Grid with Focus Effect */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 group/grid"> */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 group/grid">
+        {/* Mobile: horizontal scroll cards */}
+        <div className="md:hidden -mx-4 px-4 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4">
           {projects.map((project, index) => (
-            <div 
+            <article
               key={project.id}
-              className={`group/card relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 ease-out 
+              className="snap-start min-w-[80%] xs:min-w-[72%] sm:min-w-[65%] rounded-2xl overflow-hidden border border-slate-100 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm transition-all duration-500"
+              style={{ transitionDelay: `${index * 0.1}s` }}
+            >
+              <div className="h-64 bg-[#EFEEEC] dark:bg-gray-800 flex items-center justify-center">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="p-5 space-y-2">
+                <span className="text-brand-magenta text-[11px] font-semibold uppercase tracking-[0.18em] block">{project.category}</span>
+                <h3 className="text-xl font-bold text-brand-blue dark:text-brand-blue font-heading">{project.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{project.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Desktop: uniform 2x2 grid (same size cards) */}
+        <div className="hidden md:grid grid-cols-2 gap-6 lg:gap-7">
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              className={`group/card relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 ease-out border border-slate-100 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm min-h-[340px] md:min-h-[360px]
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
-                ${hoveredId !== null && hoveredId !== project.id ? 'opacity-40 scale-95 blur-[2px]' : 'opacity-100 scale-100'}
+                ${hoveredId !== null && hoveredId !== project.id ? 'md:opacity-50 md:scale-[0.99]' : 'opacity-100 scale-100'}
               `}
               style={{ transitionDelay: `${index * 0.1}s` }}
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              {/* <div className="aspect-[4/5] md:aspect-[3/4] overflow-hidden bg-gray-200 dark:bg-gray-800"> */}
-              <div className="h-72 md:h-96 overflow-hidden bg-gray-200 dark:bg-gray-800">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
+              <div className="absolute inset-0 bg-[#EFEEEC] dark:bg-gray-800 flex items-center justify-center">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-contain transition-transform duration-700 group-hover/card:scale-[1.04]"
                 />
               </div>
               
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-brand-blue/95 via-brand-blue/60 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 z-10"></div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover/card:translate-y-0 opacity-0 group-hover/card:opacity-100 transition-all duration-300">
-                <span className="text-brand-magenta text-xs font-bold uppercase tracking-wider mb-2 block">{project.category}</span>
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 transform translate-y-4 group-hover/card:translate-y-0 opacity-0 group-hover/card:opacity-100 transition-all duration-300 z-20">
+                <span className="text-white text-xs font-bold uppercase tracking-wider mb-2 block">{project.category}</span>
                 <h3 className="text-2xl font-bold text-white font-heading mb-2">{project.title}</h3>
-                <p className="text-gray-300 text-sm">{project.description}</p>
+                <p className="text-white text-sm">{project.description}</p>
               </div>
             </div>
           ))}
