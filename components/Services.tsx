@@ -137,11 +137,18 @@ const Services: React.FC = () => {
             className={`${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
             delay="0.3s"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900 to-navy">
-                <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '20px 20px' }}></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex -space-x-4">
-                     <div className="w-16 h-16 rounded-full bg-brand-magenta mix-blend-screen animate-pulse-slow"></div>
-                     <div className="w-16 h-16 rounded-full bg-brand-blue mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute inset-0 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1600&q=80"
+                  alt="UI/UX Design"
+                  className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-900/85 via-navy/75 to-brand-blue/70 mix-blend-multiply"></div>
+                <div className="absolute top-6 right-6 w-12 h-12 bg-white/15 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 animate-float-slow">
+                  <i className="fas fa-pen-nib text-white text-lg"></i>
+                </div>
+                <div className="absolute bottom-8 left-8 px-4 py-2 bg-white/12 border border-white/20 rounded-full text-xs text-white tracking-wide backdrop-blur-md">
+                  Wireframes · Prototypes · Systems
                 </div>
             </div>
           </BentoCard>
@@ -168,12 +175,18 @@ const Services: React.FC = () => {
             className={`${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
             delay="0.5s"
           >
-             <div className="absolute inset-0 bg-enterprise-dark overflow-hidden">
-                 <div className="absolute -right-8 -top-8 w-40 h-40 border-[20px] border-white/5 rounded-full"></div>
-                 <div className="absolute -left-8 -bottom-8 w-40 h-40 border-[20px] border-white/5 rounded-full"></div>
+             <div className="absolute inset-0 overflow-hidden">
+                 <img
+                   src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80"
+                   alt="Cloud infrastructure"
+                   className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-br from-navy/80 via-navy/60 to-brand-blue/70 mix-blend-multiply"></div>
                  <div className="absolute inset-0 flex items-center justify-center">
-                     <i className="fas fa-cloud text-6xl text-white/10 group-hover:text-white/20 transition-colors duration-500 transform group-hover:scale-110"></i>
+                     <i className="fas fa-cloud text-6xl text-white/70 group-hover:text-white transition-colors duration-500 transform group-hover:scale-110"></i>
                  </div>
+                 <div className="absolute -right-8 -top-8 w-36 h-36 border-[16px] border-white/10 rounded-full animate-pulse-slow"></div>
+                 <div className="absolute -left-10 -bottom-10 w-40 h-40 border-[18px] border-white/10 rounded-full animate-float-slow"></div>
              </div>
           </BentoCard>
 

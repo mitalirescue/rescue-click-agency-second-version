@@ -59,7 +59,7 @@ const WhyUs: React.FC = () => {
             <div className="space-y-8">
                 <div className="flex gap-4">
                     <div className="flex-shrink-0 mt-1">
-                        <div className="w-10 h-1 rounded-full bg-brand-magenta"></div>
+                        <div className=" h-1 rounded-full bg-brand-magenta"></div>
                     </div>
                     <div>
                         <h4 className="text-xl font-bold text-navy dark:text-white mb-2">Agile & Adaptive</h4>
@@ -71,7 +71,7 @@ const WhyUs: React.FC = () => {
 
                 <div className="flex gap-4">
                     <div className="flex-shrink-0 mt-1">
-                        <div className="w-10 h-1 rounded-full bg-brand-purple"></div>
+                        <div className="h-1 rounded-full bg-brand-purple"></div>
                     </div>
                     <div>
                         <h4 className="text-xl font-bold text-navy dark:text-white mb-2">Client-Centric</h4>
@@ -87,7 +87,7 @@ const WhyUs: React.FC = () => {
                 <p className="text-5xl font-bold text-navy dark:text-white font-heading">50<span className="text-brand-magenta">+</span></p>
                 <p className="text-sm font-medium text-gray-400 uppercase tracking-wider mt-2">Projects Delivered</p>
               </div> */}
-             <div className="ml-14">
+             <div className="ml-5">
                 <p className="text-5xl font-bold text-navy dark:text-white font-heading">100<span className="text-brand-magenta">%</span></p>
                 <p className="text-sm font-medium text-gray-400 uppercase tracking-wider mt-2">Client Satisfaction</p>
               </div>
