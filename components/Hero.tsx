@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 const Hero: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -11,12 +12,18 @@ const Hero: React.FC = () => {
       const y = (e.clientY / window.innerHeight) * 2 - 1;
       setMousePos({ x, y });
     };
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024);
+    };
 
+    handleResize(); // Set initial value
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -38,12 +45,16 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-noise opacity-20 pointer-events-none mix-blend-overlay z-0"></div>
       
       <div 
-        className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-brand-purple/15 rounded-full blur-[100px] animate-pulse-slow"
+        className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-navy/20 rounded-full blur-[100px] animate-pulse-slow"
         style={{ transform: `translateY(${scrollY * 0.2}px)` }}
       ></div>
       <div 
-        className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-magenta/10 rounded-full blur-[100px] animate-pulse-slow"
+        className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-navy/15 rounded-full blur-[100px] animate-pulse-slow"
         style={{ transform: `translateY(-${scrollY * 0.1}px)` }}
+      ></div>
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-navy/10 rounded-full blur-[120px] animate-pulse-slow"
+        style={{ animationDelay: '1s' }}
       ></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
@@ -112,11 +123,11 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Right Column: Visual */}
-          <div className="relative perspective-1000 hidden lg:block">
+          <div className="relative perspective-1000">
             <div 
-              className="relative z-10 bg-gradient-to-br from-gray-50 to-gray-200 rounded-[2.5rem] p-4 shadow-2xl border border-white/50 animate-fade-in will-change-transform"
+              className="relative z-10 bg-gradient-to-br from-gray-50 to-gray-200 rounded-2xl md:rounded-[2.5rem] p-3 md:p-4 shadow-2xl border border-white/50 animate-fade-in will-change-transform"
               style={{ 
-                transform: `rotateY(${mousePos.x * 2}deg) rotateX(${mousePos.y * -2}deg)`,
+                transform: isLargeScreen ? `rotateY(${mousePos.x * 2}deg) rotateX(${mousePos.y * -2}deg)` : 'none',
                 transition: 'transform 0.1s ease-out'
               }}
             >
@@ -128,21 +139,21 @@ const Hero: React.FC = () => {
                   />
                   
                   {/* Glass Overlay Card */}
-                  <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-xl border border-white/40 p-6 rounded-2xl flex items-center justify-between">
+                  <div className="absolute bottom-3 md:bottom-6 left-3 md:left-6 right-3 md:right-6 bg-white/90 backdrop-blur-xl border border-white/40 p-4 md:p-6 rounded-xl md:rounded-2xl flex items-center justify-between">
                       <div>
-                          <p className="text-gray-600 text-xs font-bold uppercase tracking-wider mb-1">Current Revenue</p>
-                          <p className="text-navy text-2xl font-bold font-heading">₹1,24,500 <span className="text-emerald-500 text-sm font-normal">+12%</span></p>
+                          <p className="text-gray-600 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1">Current Revenue</p>
+                          <p className="text-navy text-lg md:text-2xl font-bold font-heading">₹1,24,500 <span className="text-emerald-500 text-xs md:text-sm font-normal">+12%</span></p>
                       </div>
-                      <div className="w-12 h-12 rounded-full bg-brand-magenta flex items-center justify-center text-white shadow-lg shadow-brand-magenta/40">
-                          <i className="fas fa-chart-line"></i>
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-magenta flex items-center justify-center text-white shadow-lg shadow-brand-magenta/40">
+                          <i className="fas fa-chart-line text-sm md:text-base"></i>
                       </div>
                   </div>
                </div>
             </div>
 
             {/* Decorative Elements */}
-            <div className="absolute top-10 -right-10 w-24 h-24 bg-brand-blue rounded-2xl rotate-12 blur-xl opacity-40 animate-float-slow"></div>
-            <div className="absolute -bottom-5 -left-5 w-32 h-32 bg-brand-purple rounded-full blur-xl opacity-40 animate-float-slow" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-4 md:top-10 -right-4 md:-right-10 w-16 h-16 md:w-24 md:h-24 bg-brand-blue rounded-2xl rotate-12 blur-xl opacity-40 animate-float-slow"></div>
+            <div className="absolute -bottom-3 md:-bottom-5 -left-3 md:-left-5 w-20 h-20 md:w-32 md:h-32 bg-brand-purple rounded-full blur-xl opacity-40 animate-float-slow" style={{ animationDelay: '2s' }}></div>
           </div>
         </div>
       </div>
