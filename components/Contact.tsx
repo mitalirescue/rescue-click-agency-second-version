@@ -207,8 +207,8 @@ const Contact: React.FC = () => {
                     href="mailto:support@rescueclick.com"
                     className="text-gray-500 dark:text-slate-400 hover:text-brand-blue cursor-pointer"
                   >
-                   Inquiry@rescueclick.com <br />
-                   +91 86240 59021
+                   inquiry@rescueclick.com <br />
+                   +91 8830637304
                   </a>
                 </div>
 
